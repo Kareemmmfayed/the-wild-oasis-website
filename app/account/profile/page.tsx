@@ -44,6 +44,8 @@ export default function Page() {
             <Image
               src={countryFlag}
               alt="Country flag"
+              width={50}
+              height={50}
               className="h-5 rounded-sm"
             />
           </div>

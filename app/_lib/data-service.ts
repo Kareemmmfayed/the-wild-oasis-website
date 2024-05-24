@@ -1,5 +1,6 @@
 import { eachDayOfInterval } from "date-fns";
 import { Booking } from "../_components/ReservationCard";
+import { supabase } from "./supabase";
 
 interface IGuest {
   id: number;
@@ -10,6 +11,7 @@ interface IGuest {
   nationality: string;
   countryFlag: string;
 }
+
 /////////////
 // GET
 

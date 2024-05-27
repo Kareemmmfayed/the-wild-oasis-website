@@ -6,10 +6,15 @@ interface IParams {
   cabinId: string;
 }
 
-export default async function Page({ params }: { params: IParams }) {
-  const cabin = await getCabin(params.cabinId);
+export async function generateMetadata({ params }: { params: IParams }) {
+  const { name } = await getCabin(params.cabinId);
+  return { title: `Cabin ${name}` };
+}
 
-  const { name, maxCapacity, image, description } = cabin;
+export default async function Page({ params }: { params: IParams }) {
+  const { name, maxCapacity, image, description } = await getCabin(
+    params.cabinId
+  );
 
   return (
     <div className="max-w-6xl mx-auto mt-8">

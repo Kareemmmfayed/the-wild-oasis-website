@@ -1,3 +1,7 @@
+"use client";
+
+import { useReservation } from "./ReservationContext";
+
 interface ICabin {
   id: string;
   name: string;
@@ -9,6 +13,7 @@ interface ICabin {
 }
 
 function ReservationForm({ cabin }: { cabin: ICabin }) {
+  const { range } = useReservation();
   const { maxCapacity } = cabin;
 
   return (

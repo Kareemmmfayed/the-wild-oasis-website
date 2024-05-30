@@ -2,7 +2,7 @@ import { UsersIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 
 interface ICabin {
-  id: number;
+  id: string;
   name: string;
   maxCapacity: number;
   regularPrice: number;

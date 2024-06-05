@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  MouseEventHandler,
-  ReactNode,
-  createContext,
-  useContext,
-  useState,
-} from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 import { DateRange } from "react-day-picker";
 
 interface IContext {

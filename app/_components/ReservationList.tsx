@@ -4,28 +4,11 @@ import { useOptimistic } from "react";
 import ReservationCard from "./ReservationCard";
 import { deleteBooking } from "../_lib/actions";
 
-interface Booking {
-  id: number;
-  createdAt: string;
-  startDate: string;
-  endDate: string;
-  numNights: number;
-  numGuests: number;
-  totalPrice: number;
-  status: string;
-  guests: { fullName: string; email: string };
-  cabins: any;
-}
-
-interface BookingRowProps {
-  booking: Booking[];
-}
-
-function ReservationList({ bookings }: { bookings: BookingRowProps }) {
+function ReservationList({ bookings }: { bookings: any }) {
   const [optimisticBookings, optimisticDelete] = useOptimistic(
     bookings,
     (curBookings: any, bookingId) => {
-      return curBookings.filter((booking: Booking) => booking.id !== bookingId);
+      return curBookings.filter((booking: any) => booking.id !== bookingId);
     }
   );
 
@@ -36,7 +19,7 @@ function ReservationList({ bookings }: { bookings: BookingRowProps }) {
 
   return (
     <ul className="space-y-6">
-      {optimisticBookings.map((booking: Booking) => (
+      {optimisticBookings.map((booking: any) => (
         <ReservationCard
           booking={booking}
           onDelete={handleDelete}

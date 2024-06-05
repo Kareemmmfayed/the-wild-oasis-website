@@ -7,7 +7,7 @@ import { getBookings } from "./data-service";
 import { redirect } from "next/navigation";
 
 export async function updateGuest(formData: any) {
-  const session = await auth();
+  const session: any = await auth();
   if (!session) throw new Error("You must be logged in");
 
   const nationalID = formData.get("nationalID");
@@ -29,7 +29,7 @@ export async function updateGuest(formData: any) {
 }
 
 export async function createBooking(bookingData: any, formData: any) {
-  const session = await auth();
+  const session: any = await auth();
   if (!session) throw new Error("You must be logged in");
 
   const newBooking = {
@@ -54,7 +54,7 @@ export async function createBooking(bookingData: any, formData: any) {
 }
 
 export async function deleteBooking(bookingId: number) {
-  const session = await auth();
+  const session: any = await auth();
   if (!session) throw new Error("You must be logged in");
 
   const guestBookings = await getBookings(session.user?.guestId);
@@ -76,7 +76,7 @@ export async function deleteBooking(bookingId: number) {
 export async function updateBooking(formData: any) {
   const bookingId = Number(formData.get("bookingId"));
 
-  const session = await auth();
+  const session: any = await auth();
   if (!session) throw new Error("You must be logged in");
 
   const guestBookings = await getBookings(session.user?.guestId);

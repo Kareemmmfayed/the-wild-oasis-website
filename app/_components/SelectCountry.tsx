@@ -1,4 +1,4 @@
-import { getCountries } from "@/app/_lib/data-service";
+// import { getCountries } from "@/app/_lib/data-service";
 
 interface IProps {
   defaultCountry: string;
@@ -13,10 +13,13 @@ interface ICountry {
 }
 
 async function SelectCountry({ defaultCountry, name, id, className }: IProps) {
-  const countries = await getCountries();
-  const flag =
-    countries.find((country: ICountry) => country.name === defaultCountry)
-      ?.flag ?? "";
+  // const countries = await getCountries();
+  // const flag =
+  //   countries.find((country: ICountry) => country.name === defaultCountry)
+  //     ?.flag ?? "";
+
+  const countries = [{ name: "egypt", flag: "egypt" }];
+  const flag = "egypt";
 
   return (
     <select

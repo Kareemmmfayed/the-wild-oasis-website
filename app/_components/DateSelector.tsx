@@ -1,16 +1,16 @@
 "use client";
 
-import { isWithinInterval } from "date-fns";
-import { DayPicker } from "react-day-picker";
+import {
+  differenceInDays,
+  isPast,
+  isSameDay,
+  isWithinInterval,
+} from "date-fns";
+import { DayPicker, Matcher } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useReservation } from "./ReservationContext";
 
-interface Irange {
-  from: Date;
-  to: Date;
-}
-
-function isAlreadyBooked(range: Irange, datesArr: Date[]) {
+function isAlreadyBooked(range: any, datesArr: Date[]) {
   return (
     range.from &&
     range.to &&
@@ -35,7 +35,7 @@ interface ISettings {
   maxBookingLength: number;
 }
 
-interface IBookDates {}
+interface IBookDates extends Array<Date> {}
 
 function DateSelector({
   settings,
@@ -46,14 +46,18 @@ function DateSelector({
   bookedDates: IBookDates;
   cabin: ICabin;
 }) {
-  const regularPrice = 23;
-  const discount = 23;
-  const numNights = 23;
-  const cabinPrice = 23;
-
   const { minBookingLength, maxBookingLength } = settings;
 
   const { range, setRange, resetRange } = useReservation();
+
+  const displayRange: any = isAlreadyBooked(range, bookedDates) ? {} : range;
+
+  const { regularPrice, discount } = cabin;
+
+  const numNights =
+    range?.from && range?.to ? differenceInDays(range.to, range.from) : 0;
+
+  const cabinPrice = numNights * (regularPrice - discount);
 
   return (
     <div className="flex flex-col justify-between">
@@ -61,7 +65,7 @@ function DateSelector({
         className="pt-12 place-self-center"
         mode="range"
         onSelect={setRange}
-        selected={range}
+        selected={displayRange}
         min={minBookingLength + 1}
         max={maxBookingLength}
         fromMonth={new Date()}
@@ -69,6 +73,10 @@ function DateSelector({
         toYear={new Date().getFullYear() + 5}
         captionLayout="dropdown"
         numberOfMonths={2}
+        disabled={(curDate) =>
+          isPast(curDate) ||
+          bookedDates.some((date: Date) => isSameDay(date, curDate))
+        }
       />
 
       <div className="flex items-center justify-between px-8 bg-accent-500 text-primary-800 h-[72px]">

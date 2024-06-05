@@ -12,7 +12,7 @@ import { DateRange } from "react-day-picker";
 interface IContext {
   range: DateRange | undefined;
   setRange: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
-  resetRange: MouseEventHandler<HTMLButtonElement> | undefined;
+  resetRange: any;
 }
 
 const ReservationContext = createContext<IContext | undefined>(undefined);

@@ -4,13 +4,13 @@ import { supabase } from "./supabase";
 import { notFound } from "next/navigation";
 
 interface IGuest {
-  id: number;
-  created_at: string;
-  fullName: string;
-  email: string;
-  nationalID: string;
-  nationality: string;
-  countryFlag: string;
+  id?: number;
+  created_at?: string;
+  fullName?: string;
+  email?: string;
+  nationalID?: string;
+  nationality?: string;
+  countryFlag?: string;
 }
 
 /////////////
@@ -60,7 +60,7 @@ export const getCabins = async function () {
 };
 
 // Guests are uniquely identified by their email address
-export async function getGuest(email: string) {
+export async function getGuest(email: string | undefined | null) {
   const { data, error } = await supabase
     .from("guests")
     .select("*")
@@ -91,7 +91,7 @@ export async function getBookings(guestId: string) {
     .from("bookings")
     // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
     .select(
-      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
+      "id, createdAt, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
     )
     .eq("guestId", guestId)
     .order("startDate");

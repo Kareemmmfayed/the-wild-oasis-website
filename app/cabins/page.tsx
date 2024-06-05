@@ -1,4 +1,4 @@
-import { ReactNode, Suspense } from "react";
+import { Suspense } from "react";
 import CabinList from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
 import Filter from "../_components/Filter";
